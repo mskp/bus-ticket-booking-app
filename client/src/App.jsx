@@ -18,6 +18,15 @@ function App() {
 
   const [bookingHistory, setBookingHistory] = useState([]);
 
+  const resetBookingDetails = () => {
+    setBookingDetails({
+      passangerName: "",
+      source: "",
+      destination: "",
+      time: "",
+    });
+  };
+
   const fetchBookingDetails = async () => {
     try {
       const { data } = await axios.get(`${serverURL}/api/booking`);
@@ -46,6 +55,8 @@ function App() {
     } catch (error) {
       console.log(error.message);
       toast.error("Some error occurred", { id: "toast" });
+    } finally {
+      resetBookingDetails();
     }
   };
 
